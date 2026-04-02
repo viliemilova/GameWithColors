@@ -1,0 +1,92 @@
+<html>
+<title>Игра с цветове</title>
+<body style="background-color: lightgreen; font-size: 30">
+<p id=1>Точки: 0</p>
+<button id=3 style="font-size:30" onclick="start()">С Т А Р Т</button>
+<button id=4 style="background-color: red; font-size: 30; width: 120"
+onclick="f1()">Червен</button>
+<button id=5 style="background-color: blue; font-size: 30; width: 120"
+onclick="f2()" >Син</button>
+<br>
+<button id=2 style="width: 120; height: 50; border: none; 
+background-color: lightgreen; position: absolute"></button>
+
+<script>
+var points=0;
+var w=window.innerWidth;
+var h=window.innerHeight;
+var btn=document.getElementById("2");
+btn.style.left=2;
+btn.style.top=h/2;
+
+//btn.style.backgroundColor="red";
+var x=2;
+var c=Math.floor(Math.random()*2);
+if(c==0) btn.style.backgroundColor="red";
+else btn.style.backgroundColor="blue";
+var s, color;
+var start=function()
+{
+s=setInterval(move, 10);
+document.getElementById("3").disabled=true;
+}
+
+var move=function()
+{
+x=x+10;
+btn.style.left=x;
+if(x>=w-120)
+{
+x=2;
+c=Math.floor(Math.random()*2);
+if(c==0) btn.style.backgroundColor="red";
+else btn.style.backgroundColor="blue";
+document.getElementById("4").disabled=false;
+document.getElementById("5").disabled=false;
+}
+}
+
+var f1=function()
+{
+document.getElementById("4").disabled=true;
+if(c==0)
+{
+points++;
+document.getElementById("1").innerHTML="Точки: "+points;
+}
+else
+{
+clearInterval(s);
+document.getElementById("5").disabled=true;
+alert("Край на играта!");
+}
+}
+
+var f2=function()
+{
+document.getElementById("5").disabled=true;
+if(c==1)
+{
+points++;
+document.getElementById("1").innerHTML="Точки: "+points;
+}
+else
+{
+clearInterval(s);
+document.getElementById("4").disabled=true;
+alert("Край на играта!");
+}
+}
+
+document.addEventListener("keydown", function(event) 
+{
+	if(document.getElementById("3").disabled==false) return;
+    if (event.key == "ArrowLeft") f1();
+    if (event.key == "ArrowRight") f2();
+});
+
+
+</script>
+
+</body>
+</html>
